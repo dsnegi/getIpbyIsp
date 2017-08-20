@@ -9,5 +9,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "pear/console_commandline": "dev-master"
+    }
 }
