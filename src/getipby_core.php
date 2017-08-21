@@ -23,10 +23,10 @@ error_reporting(E_ALL);
  * @author hIMEI <himei@tuta.io>
  * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
  */
-class GetIp
+class GetIpCore
 {
     /**
-     * city_link
+     * city_link Web service's url to get IP ranges by city.
      *
      * @var string
      * @access private
@@ -34,7 +34,7 @@ class GetIp
     private $city_link = 'https://suip.biz/ru/?act=iploc';
     
     /**
-     * country_link
+     * country_link Web service's url to get IP ranges by country.
      *
      * @var string
      * @access private
@@ -42,7 +42,7 @@ class GetIp
     private $country_link = 'https://suip.biz/ru/?act=ipcountry';
 
     /**
-     * isp_link
+     * isp_link Web service's url to get IP ranges by internet service provider.
      *
      * @var string
      * @access private
@@ -50,7 +50,7 @@ class GetIp
     private $isp_link = 'https://suip.biz/ru/?act=ipintpr';
 
     /**
-     * params
+     * params Main application parameters.
      *
      * @var array
      * @access private
@@ -58,7 +58,7 @@ class GetIp
     private $params = array();
 
     /**
-     * __construct
+     * __construct Creates object of GetIpCore class.
      *
      * @param mixed $params
      * @access public
@@ -70,7 +70,7 @@ class GetIp
     }
 
     /**
-     * getparams
+     * getparams Gets private attribute.
      *
      * @access public
      * @return void
@@ -107,7 +107,8 @@ class GetIp
     }
  
     /**
-     * userAgent Sets random "user agent" value from 1034 values
+     * userAgent Sets random "user agent" value from 1034 values. User agent strings
+     * given from SqlMap package.
      *
      * @param  void
      * @return string $user_agent

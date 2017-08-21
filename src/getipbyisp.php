@@ -37,8 +37,20 @@ require_once(__DIR__ . '/getipby_core.php');
  */
 class GetIpCli
 {
+    /**
+     * parser Oblect of Pear::Console_CommandLine package's main class. 
+     * 
+     * @var mixed
+     * @access private
+     */
     private $parser;
 
+    /**
+     * country_codes Array of 2-letters country codes.
+     * 
+     * @var array
+     * @access private
+     */
     private $country_codes = array(
                                 'AD','AE','AF','AG','AI','AL','AM','AO','AQ','AR','AS',
                                 'AT','AU','AW','AX','AZ','BA','BB','BD','BE','BF','BG',
@@ -65,6 +77,12 @@ class GetIpCli
                                 'WF','WS','YE','YT','ZA','ZM','ZW'
                                 );
 
+    /**
+     * __construct Creates object of main application class, initialise the parser.
+     * 
+     * @access public
+     * @return void
+     */
     public function __construct()
     {
         $parser = new Console_CommandLine(array(
@@ -100,16 +118,34 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
         $this->parser = $parser;
     }
 
+    /**
+     * getParser Gets private attribute.
+     * 
+     * @access public
+     * @return void
+     */
     public function getParser()
     {
         return $this->parser;
     }
 
+    /**
+     * getCountryCodes Gets private attribute.
+     * 
+     * @access public
+     * @return void
+     */
     public function getCountryCodes()
     {
         return $this->country_codes;
     }
   
+    /**
+     * cliParse Parses CLI arguments.
+     * 
+     * @access public
+     * @return array $params Array of app's parameters.
+     */
     public function cliParse()
     {
         $params = array();
@@ -147,7 +183,7 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
             if ($parsed->args['type'] === 'country') {
                 foreach ($country_codes as $code) {
                     if (($parsed->args['request']) !== $code) {
-                        die(RED.BOLD."Invalid country code! Here is no such country in our world.\n".RESET);
+                        die(RED.BOLD."Invalid country code! Here is no such country in our world. May be in Middle Earth?\n".RESET);
                     }
                 }
             }
@@ -165,5 +201,5 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
 
 $cli = new GetIpCli();
 $params = $cli->cliParse();
-$get_ip = new GetIp($params);
+$get_ip = new GetIpCore($params);
 $full_res = $get_ip->outPut();

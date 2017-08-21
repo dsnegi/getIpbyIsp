@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>phpDox - GetIpCore</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="screen"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <nav class="topnav">
+      <ul>
+        <li>
+          <div class="logo"><span>/**</span>phpDox</div>
+        </li>
+        <li class="separator">
+          <a href="../index.xhtml">Overview</a>
+        </li>
+        <li class="separator">
+          <a href="../namespaces.xhtml">Namespaces</a>
+        </li>
+        <li>
+          <a href="../classes.xhtml">Classes</a>
+        </li>
+        <li class="separator">
+          <a href="../source/index.xhtml">Source</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="mainstage">
+      <div class="box">
+        <ul class="breadcrumb">
+          <li>
+            <a href="../index.xhtml">Overview</a>
+          </li>
+          <li class="separator">
+            <a href="../classes.xhtml">Classes</a>
+          </li>
+          <li class="separator">GetIpCore</li>
+        </ul>
+      </div>
+      <nav class="box">
+        <ul>
+          <li>
+            <a href="#introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#synopsis">Synopsis</a>
+          </li>
+          <li>
+            <a href="#members">Members</a>
+          </li>
+          <li>
+            <a href="#methods">Methods</a>
+          </li>
+          <li>
+            <a href="../source/getipby_core.php.xhtml#line26">Source</a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <h1 id="introduction"><small>\</small>GetIpCore</h1>
+        <h4>GetIp</h4>
+        <p/>
+        <ul>
+          <li>Author: hIMEI &lt;himei@tuta.io&gt;</li>
+          <li>Copyright: hIMEI</li>
+          <li>License: PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}</li>
+        </ul>
+        <h2 id="synopsis">Synopsis</h2>
+        <div class="synopsis">class GetIpCore
+            {<br/><ul class="none"><li>// members</li><li>private string <a href="#members">$city_link</a> =
+                        'https://suip.biz/ru/?act=iploc';
+                    </li><li>private string <a href="#members">$country_link</a> =
+                        'https://suip.biz/ru/?act=ipcountry';
+                    </li><li>private string <a href="#members">$isp_link</a> =
+                        'https://suip.biz/ru/?act=ipintpr';
+                    </li><li>private array <a href="#members">$params</a> =
+                        ;
+                    </li></ul><ul class="none"><li>// methods</li><li>public void <a title="GetIpCore" href="../classes/GetIpCore/__construct.xhtml">__construct</a>()
+                    </li><li>public void <a title="GetIpCore" href="../classes/GetIpCore/getParams.xhtml">getParams</a>()
+                    </li><li>public string <a title="GetIpCore" href="../classes/GetIpCore/getLink.xhtml">getLink</a>()
+                    </li><li>public string <a title="GetIpCore" href="../classes/GetIpCore/userAgent.xhtml">userAgent</a>()
+                    </li><li>public string <a title="GetIpCore" href="../classes/GetIpCore/getIps.xhtml">getIps</a>()
+                    </li><li>public string <a title="GetIpCore" href="../classes/GetIpCore/prepHtml.xhtml">prepHtml</a>()
+                    </li><li>public string <a title="GetIpCore" href="../classes/GetIpCore/outPut.xhtml">outPut</a>()
+                    </li></ul>
+
+            }<br/></div>
+        <h2 id="members">Members</h2>
+        <div class="styled members">
+          <h4>private</h4>
+          <ul class="members">
+            <li id="city_link"><strong>$city_link</strong>
+                —
+                string<br/><span class="indent">city_link Web service's url to get IP ranges by city.</span></li>
+            <li id="country_link"><strong>$country_link</strong>
+                —
+                string<br/><span class="indent">country_link Web service's url to get IP ranges by country.</span></li>
+            <li id="isp_link"><strong>$isp_link</strong>
+                —
+                string<br/><span class="indent">isp_link Web service's url to get IP ranges by internet service provider.</span></li>
+            <li id="params"><strong>$params</strong>
+                —
+                array<br/><span class="indent">params Main application parameters.</span></li>
+          </ul>
+        </div>
+        <h2 id="methods">Methods</h2>
+        <div class="styled">
+          <h4>public</h4>
+          <ul>
+            <li id="__construct"><a title="GetIpCore" href="../classes/GetIpCore/__construct.xhtml">__construct()</a>
+                — __construct Creates object of GetIpCore class.</li>
+            <li id="getIps"><a title="GetIpCore" href="../classes/GetIpCore/getIps.xhtml">getIps()</a>
+                — getIps Creates request with given params to service web-site.</li>
+            <li id="getLink"><a title="GetIpCore" href="../classes/GetIpCore/getLink.xhtml">getLink()</a>
+                — getLink Parses given request type (city, country, ISP).</li>
+            <li id="getParams"><a title="GetIpCore" href="../classes/GetIpCore/getParams.xhtml">getParams()</a>
+                — getparams Gets private attribute.</li>
+            <li id="outPut"><a title="GetIpCore" href="../classes/GetIpCore/outPut.xhtml">outPut()</a>
+                — outPut Main output; returns IP's list, prints it to STDOUT, optionaly saves it to file.</li>
+            <li id="prepHtml"><a title="GetIpCore" href="../classes/GetIpCore/prepHtml.xhtml">prepHtml()</a>
+                — prepHtml Trims all unwanted HTML content.</li>
+            <li id="userAgent"><a title="GetIpCore" href="../classes/GetIpCore/userAgent.xhtml">userAgent()</a>
+                — userAgent Sets random "user agent" value from 1034 values. User agent strings given from SqlMap package.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <span>Generated using phpDox 0.10.0 - Copyright (C) 2010 - 2017 by Arne Blankerts</span>
+    </footer>
+  </body>
+</html>
