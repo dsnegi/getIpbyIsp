@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<source xmlns="http://xml.phpdox.net/src">
-  <dir name="/home/zion/projects/getIpBy/src">
-    <file name="getipbyisp.php" size="7456" time="2017-08-21T19:35:32+00:00" unixtime="1503344132" sha1="8ec7248ffbb951cf96e1e89347b13692bc5ff92f" xml="tokens/getipbyisp.php.xml"/>
-    <file name="getipby_core.php" size="5091" time="2017-08-21T21:01:29+00:00" unixtime="1503349289" sha1="0e59d211ecd6c4c6562358312b5f811f258444d1" xml="tokens/getipby_core.php.xml"/>
-  </dir>
-</source>
