@@ -64,7 +64,7 @@ Arguments:
 To get all IP ranges of **Serbia**
 
 ```shell
-php getipbyisp.php country rs
+php getipbyisp.php country RS
 ```
 
 To get all IP ranges of **London** and save it to **file.txt**

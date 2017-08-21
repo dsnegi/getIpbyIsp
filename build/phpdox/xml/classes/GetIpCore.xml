@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://xml.phpdox.net/src" full="GetIpCore" namespace="" name="GetIpCore" abstract="false" final="false" start="26" end="206">
+  <file path="/home/zion/projects/getIpBy/src" file="getipby_core.php" realpath="/home/zion/projects/getIpBy/src/getipby_core.php" size="5091" time="2017-08-21T21:01:29+00:00" unixtime="1503349289" sha1="0e59d211ecd6c4c6562358312b5f811f258444d1" relative="getipby_core.php"/>
+  <docblock>
+    <description compact="GetIp"/>
+    <package/>
+    <version value="$id$"/>
+    <copyright value="hIMEI"/>
+    <author value="hIMEI &lt;himei@tuta.io&gt;"/>
+    <license name="PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"/>
+  </docblock>
+  <member name="city_link" type="string" default="'https://suip.biz/ru/?act=iploc'" visibility="private" static="false" line="34">
+    <docblock>
+      <description compact="city_link Web service's url to get IP ranges by city."/>
+      <var type="string"/>
+      <access value="private"/>
+    </docblock>
+  </member>
+  <member name="country_link" type="string" default="'https://suip.biz/ru/?act=ipcountry'" visibility="private" static="false" line="42">
+    <docblock>
+      <description compact="country_link Web service's url to get IP ranges by country."/>
+      <var type="string"/>
+      <access value="private"/>
+    </docblock>
+  </member>
+  <member name="isp_link" type="string" default="'https://suip.biz/ru/?act=ipintpr'" visibility="private" static="false" line="50">
+    <docblock>
+      <description compact="isp_link Web service's url to get IP ranges by internet service provider."/>
+      <var type="string"/>
+      <access value="private"/>
+    </docblock>
+  </member>
+  <member name="params" type="array" default="" visibility="private" static="false" line="58">
+    <docblock>
+      <description compact="params Main application parameters."/>
+      <var type="array"/>
+      <access value="private"/>
+    </docblock>
+  </member>
+  <constructor name="__construct" start="67" end="70" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="__construct Creates object of GetIpCore class."/>
+      <param type="mixed" variable="$params"/>
+      <access value="public"/>
+      <return type="object">
+        <type full="void" namespace="" name="void"/>
+      </return>
+    </docblock>
+    <parameter name="params" byreference="false" type="{unknown}"/>
+  </constructor>
+  <method name="getParams" start="78" end="81" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="getparams Gets private attribute."/>
+      <access value="public"/>
+      <return type="object">
+        <type full="void" namespace="" name="void"/>
+      </return>
+    </docblock>
+  </method>
+  <method name="getLink" start="90" end="107" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="getLink Parses given request type (city, country, ISP)."/>
+      <param type="object">
+        <type full="void" namespace="" name="void"/>
+      </param>
+      <access value="public"/>
+      <return description="$link Url to make request." type="string"/>
+    </docblock>
+  </method>
+  <method name="userAgent" start="116" end="123" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="userAgent Sets random &quot;user agent&quot; value from 1034 values. User agent strings given from SqlMap package."/>
+      <param type="object">
+        <type full="void" namespace="" name="void"/>
+      </param>
+      <return description="$user_agent" type="string"/>
+    </docblock>
+  </method>
+  <method name="getIps" start="132" end="159" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="getIps Creates request with given params to service web-site."/>
+      <param type="object">
+        <type full="void" namespace="" name="void"/>
+      </param>
+      <access value="public"/>
+      <return description="$result Response from web-service." type="string"/>
+    </docblock>
+  </method>
+  <method name="prepHtml" start="168" end="176" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="prepHtml Trims all unwanted HTML content."/>
+      <param description="HTML source of result page - result of  prev function." type="string" variable="$result"/>
+      <access value="public"/>
+      <return description="$res_trimmed String with list of IPs." type="string"/>
+    </docblock>
+    <parameter name="result" byreference="false" type="{unknown}"/>
+  </method>
+  <method name="outPut" start="186" end="205" abstract="false" final="false" static="false" visibility="public">
+    <docblock>
+      <description compact="outPut Main output; returns IP's list, prints it to STDOUT, optionaly saves it to file."/>
+      <param type="object">
+        <type full="void" namespace="" name="void"/>
+      </param>
+      <access value="public"/>
+      <return description="$result Main result." type="string"/>
+    </docblock>
+  </method>
+</class>

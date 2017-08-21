@@ -163,14 +163,16 @@ class GetIpCore
      *
      * @param string $result HTML source of result page - result of  prev function.
      * @access public
-     * @return string $trimmed[2] String with list of IPs.
+     * @return string $res_trimmed String with list of IPs.
      */
     public function prepHtml($result)
     {
         $trimmed = strip_tags($result, '<pre>');
         $trimmed = explode("pre", $trimmed);
+        $res_trimmed = substr_replace($trimmed[2], '', 0, 1);
+        $res_trimmed = substr_replace($res_trimmed, '', -2, 2);
 
-        return $trimmed[2];
+        return $res_trimmed;
     }
 
     /**

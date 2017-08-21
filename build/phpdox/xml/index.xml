@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index xmlns="http://xml.phpdox.net/src" basedir="/home/zion/projects/getIpBy/src">
+  <namespace name="">
+    <class name="GetIpCli" src="getipbyisp.php" description="GetIp" xml="classes/GetIpCli.xml"/>
+    <class name="GetIpCore" src="getipby_core.php" description="GetIp" xml="classes/GetIpCore.xml"/>
+  </namespace>
+</index>
