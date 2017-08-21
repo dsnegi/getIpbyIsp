@@ -180,12 +180,8 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
                 die(RED.BOLD."Invalid country name! Only 2 english letters must be there.\n".RESET);
             }
 
-            if ($parsed->args['type'] === 'country') {
-                foreach ($country_codes as $code) {
-                    if (($parsed->args['request']) !== $code) {
-                        die(RED.BOLD."Invalid country code! Here is no such country in our world. May be in Middle Earth?\n".RESET);
-                    }
-                }
+            if (($parsed->args['type'] === 'country') && (in_array($parsed->args['request'], $country_codes) === false)) {
+                die(RED.BOLD."Invalid country code! Here is no such country in our world. May be in Middle Earth?\n".RESET);
             }
             
             $params['type']    = trim($parsed->args['type']);
