@@ -1,7 +1,13 @@
 {
-    "name": "himei/get-ip-by",
-    "description": "Simple cURL based commandline application for getting IP ranges by city, country or ISP from suip.biz web-services.",
+    "name": "himei/get-ip-by-isp",
+    "description": "Simple cURL based console application for getting IP ranges from suip.biz web-services by city, country or ISP",
     "type": "project",
+    "keywords": [
+        "console",
+        "ip ranges",
+    ],
+    "homepage": "https://github.com/hlmel/getIpbyIsp",
+    "license": "MIT",
     "authors": [
         {
             "name": "hIMEI",
@@ -10,6 +16,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=5.3.0",
         "pear/console_commandline": "dev-master"
     }
 }

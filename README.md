@@ -1,36 +1,65 @@
-# README Template
+# GetIpByIsp
+======
 
-A template of README best practices to make your README simple to understand and easy to use.
+Simple cURL based console application for getting IP ranges from https://suip.biz [suip.biz](https://suip.biz) web-services by city, country (very big size!! i'm really afraid) or ISP. In case of ISP you may specify single ip or web-site url of that provider as argument of script. 
+
+### Dependencies
+
+* pear/console_commandline
 
 ## Installation
 
-Quickly describe how to install your project and how to get it running
+Just clone this repo
 
-1. Install Node dependencies
+```shell
+git clone https://github.com/hlmel/getIpbyIsp.git
+```
+Then install dependencies
 
-npm install
-
-2. Install Bower dependencies
-
-bower install
-
-3. Install Composer dependencies
-
+```shell
 composer install
+```
 
 ## Usage
 
-Here you can write any kind of things that help others to use your project. Feel free to add as many aspects as you like. Here are just three examples:
+Type next in your console for getting help:
 
-### Build Process
-If there is anyhting special about your build process or things that others have to take care of, write it down here
+```shell
+php getipbyisp.php -h
+```
 
-### Deployment
-Since some projects follow a special kind of deployment, you should provide a proper description on how to deploy.
+or
 
-### Cronjobs
-If you project is using cron jobs or any other automated scripts you should describe their functionality here.
+```shell
+php getipbyisp.php --help
+```
 
-## Support & Ownership
+The output:
 
-Feel free to ask [Roland Lösslein](info@weaintplastic.com) if you need some support when there are any questions left or if you need some support.
+```shell
+Console application for getting IP ranges 
+from suip.biz web-services by city, country or ISP
+
+Usage:
+  getipbyisp.php [options] type request
+
+Options:
+  -o output, --output=output  File to store the result
+                              
+  -h, --help                  Show this help message and exit
+
+Arguments:
+  type     Set the type of which IP ranges will be requested: city, counrty or isp
+           
+  request  Request string: for country - 2-letter country code, for city - its name, for ISP - single IP or ISP's url
+```
+
+## TODO
+
+* Tests
+* Documentation
+
+## Contact
+
+For bug reports or any other purpose you may contact me via email [himei at tuta dot io].
+

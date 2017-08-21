@@ -15,52 +15,52 @@
 error_reporting(E_ALL);
 
 /**
- * GetIp 
- * 
- * @package 
+ * GetIp
+ *
+ * @package
  * @version $id$
  * @copyright hIMEI
- * @author hIMEI <himei@tuta.io> 
+ * @author hIMEI <himei@tuta.io>
  * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
  */
 class GetIp
 {
     /**
-     * city_link 
-     * 
+     * city_link
+     *
      * @var string
      * @access private
      */
     private $city_link = 'https://suip.biz/ru/?act=iploc';
     
     /**
-     * country_link 
-     * 
+     * country_link
+     *
      * @var string
      * @access private
      */
     private $country_link = 'https://suip.biz/ru/?act=ipcountry';
 
     /**
-     * isp_link 
-     * 
+     * isp_link
+     *
      * @var string
      * @access private
      */
     private $isp_link = 'https://suip.biz/ru/?act=ipintpr';
 
     /**
-     * params 
-     * 
+     * params
+     *
      * @var array
      * @access private
      */
     private $params = array();
 
     /**
-     * __construct 
-     * 
-     * @param mixed $params 
+     * __construct
+     *
+     * @param mixed $params
      * @access public
      * @return void
      */
@@ -70,41 +70,8 @@ class GetIp
     }
 
     /**
-     * getCityLink 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getCityLink()
-    {
-        return $this->city_link;
-    }
- 
-    /**
-     * getCountryLink 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getCountryLink()
-    {
-        return $this->country_link;
-    }
-
-    /**
-     * getIspLink 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getIspLink()
-    {
-        return $this->isp_link;
-    }
-
-    /**
-     * getparams 
-     * 
+     * getparams
+     *
      * @access public
      * @return void
      */
@@ -113,6 +80,13 @@ class GetIp
         return $this->params;
     }
 
+    /**
+     * getLink Parses given request type (city, country, ISP).
+     *
+     * @param  void
+     * @access public
+     * @return string $link Url to make request.
+     */
     public function getLink()
     {
         $params = $this->params;
@@ -130,15 +104,15 @@ class GetIp
         }
 
         return $link;
-        
-    }  
+    }
  
     /**
-     * Set random "user agent" value from 1034 values
+     * userAgent Sets random "user agent" value from 1034 values
+     *
      * @param  void
      * @return string $user_agent
      */
-    public  function userAgent()
+    public function userAgent()
     {
         $ua_file    = file(__DIR__.'/agents');
         $random_num = random_int(0, 1034);
@@ -148,10 +122,11 @@ class GetIp
     }
 
     /**
-     * getIps 
-     * 
+     * getIps Creates request with given params to service web-site.
+     *
+     * @param  void
      * @access public
-     * @return void
+     * @return string $result Response from web-service.
      */
     public function getIps()
     {
@@ -165,7 +140,7 @@ class GetIp
             $post_items[] = $key.'='.$value;
         }
 
-        $post_string = implode ('&', $post_items);
+        $post_string = implode('&', $post_items);
         $session = curl_init();
 
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
@@ -176,7 +151,6 @@ class GetIp
         curl_setopt($session, CURLOPT_FOLLOWLOCATION, 1);
               
         $result = curl_exec($session);
-//        print_r(curl_getinfo($session));
         print(curl_errno($session) . '-' .curl_error($session));
         curl_close($session);
         
@@ -184,13 +158,13 @@ class GetIp
     }
 
     /**
-     * prepHtml 
-     * 
-     * @param mixed $result 
+     * prepHtml Trims all unwanted HTML content.
+     *
+     * @param string $result HTML source of result page - result of  prev function.
      * @access public
-     * @return void
+     * @return string $trimmed[2] String with list of IPs.
      */
-    function prepHtml($result)
+    public function prepHtml($result)
     {
         $trimmed = strip_tags($result, '<pre>');
         $trimmed = explode("pre", $trimmed);
@@ -199,18 +173,31 @@ class GetIp
     }
 
     /**
-     * outPut 
-     * 
-     * @param mixed $result 
+     * outPut Main output; returns IP's list, prints it to STDOUT,
+     * optionaly saves it to file.
+     *
+     * @param void
      * @access public
-     * @return void
+     * @return string $result Main result.
      */
-    public function outPut($result)
+    public function outPut()
     {
-        $options = $this->getparams();
-        $file = $params['out'];
-        $output = fopen($file, "w");
-        fwrite($output, $result);
-        fclose($output);
+        $params = $this->params;
+        $result = $this->getIps();
+        $result = $this->prepHtml($result);
+        if (isset($params['output'])) {
+            $file = $params['output'];
+            $output = fopen($file, "w");
+
+            if ($output === false) {
+                die(RED.BOLD."Error opening file\n".RESET);
+            }
+
+            fwrite($output, $result);
+            fclose($output);
+        }
+
+        print($result);
+        return $result;
     }
 }

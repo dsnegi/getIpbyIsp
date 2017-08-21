@@ -3,9 +3,9 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * Short description for 
+ * Short description for
  *
- * @package 
+ * @package
  * @author hIMEI <hIMEI@tuta.io>
  * @version 0.1
  * @copyright (C) 2017 hIMEI <hIMEI@tuta.io>
@@ -27,12 +27,12 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/getipby_core.php');
 
 /**
- * GetIp 
- * 
- * @package 
+ * GetIp
+ *
+ * @package
  * @version $id$
  * @copyright hIMEI
- * @author hIMEI <himei@tuta.io> 
+ * @author hIMEI <himei@tuta.io>
  * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
  */
 class GetIpCli
@@ -69,7 +69,7 @@ be requested: city, counrty or isp\n".RESET
             'action'      => 'StoreString',
             'description' => GRN."Request string: for country - 2-letter country code, 
 for city - its name, for ISP - single IP or ISP url\n".RESET
-            ));            
+            ));
 
         $this->parser = $parser;
     }
@@ -98,15 +98,15 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
 
             if (($parsed->args['type'] !== 'city')    &&
                 ($parsed->args['type'] !== 'isp')     &&
-                ($parsed->args['type'] !== 'country')) {    
-                    die(RED.BOLD."Valid values for <type> is 'city', 'isp' or 'country'!\n".RESET);
+                ($parsed->args['type'] !== 'country')) {
+                die(RED.BOLD."Valid values for <type> is 'city', 'isp' or 'country'!\n".RESET);
             }
             
             if (($parsed->args['type'] === 'city') && (ctype_alpha($parsed->args['request']) != true)) {
                 die(RED.BOLD."Invalid city name! Only letters must be there.\n".RESET);
             }
 
-            if (($parsed->args['type'] === 'country') && 
+            if (($parsed->args['type'] === 'country') &&
                ((strlen($parsed->args['request']) !== 2) || (ctype_alpha($parsed->args['request']) != true))) {
                 die(RED.BOLD."Invalid country name! Only 2 english letters must be there.\n".RESET);
             }
@@ -125,8 +125,4 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
 $cli = new GetIpCli();
 $params = $cli->cliParse();
 $get_ip = new GetIp($params);
-$result = $get_ip->getIps();
-$f_result = $get_ip->prepHtml($result);
-print($f_result);
-
-
+$full_res = $get_ip->outPut();
