@@ -14,7 +14,17 @@
 
 error_reporting(E_ALL);
 
+/* Global constants for colorize output */
+
+const    RED    =    "\x1B[31m";
+const    GRN    =    "\x1B[32m";
+const    YEL    =    "\x1B[33m";
+const    BOLD   =    "\x1B[1m";
+const    LINE   =    "\x1B[4m";
+const    RESET  =    "\x1B[0m";
+
 require_once(__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/getipby_core.php');
 
 /**
  * GetIp 
@@ -25,211 +35,101 @@ require_once(__DIR__ . '/../vendor/autoload.php');
  * @author hIMEI <himei@tuta.io> 
  * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
  */
-class GetIp
+class GetIpCli
 {
-    /**
-     * city_link 
-     * 
-     * @var string
-     * @access private
-     */
-    private $city_link = 'https://suip.biz/ru/?act=iploc';
-    
-    /**
-     * country_link 
-     * 
-     * @var string
-     * @access private
-     */
-    private $country_link = 'https://suip.biz/ru/?act=ipcountry';
+    private $parser;
 
-    /**
-     * isp_link 
-     * 
-     * @var string
-     * @access private
-     */
-    private $isp_link = 'https://suip.biz/ru/?act=ipintpr';
-
-    /**
-     * opts 
-     * 
-     * @var array
-     * @access private
-     */
-    private $opts = array(
-                        'link'   => null,
-                        'out'    => null,
-                        'url'    => 'url',
-                        'action' => 'Отправить'
-                        );
-
-    /**
-     * __construct 
-     * 
-     * @param mixed $opts 
-     * @access public
-     * @return void
-     */
-    public function __construct($opts)
+    public function __construct()
     {
-        $this->opts = $opts;
+        $parser = new Console_CommandLine(array(
+            'description' => YEL."\nConsole application for getting IP ranges 
+from suip.biz web-services by city, country or ISP".RESET,
+            'version'            => "1.0.0",
+            'add_version_option' => false,
+            ));
+
+        $parser->addOption('output', array(
+            'short_name'  => '-o',
+            'long_name'   => '--output',
+            'action'      => 'StoreString',
+            'description' => GRN."File to store the result\n".RESET
+            ));
+
+        $parser->addArgument('type', array(
+            'short_name'  => '-t',
+            'long_name'   => '--type',
+            'action'      => 'StoreString',
+            'description' => GRN."Set the type of which IP ranges will 
+be requested: city, counrty or ISP\n".RESET
+            ));
+
+        $parser->addArgument('request', array(
+            'short_name'  => '-r',
+            'long_name'   => '--request',
+            'action'      => 'StoreString',
+            'description' => GRN."Request string: for country - 2-letter country code, 
+for city - its name, for ISP - single IP or ISP url\n".RESET
+            ));            
+
+        $this->parser = $parser;
     }
 
-    /**
-     * help 
-     * 
-     * @access public
-     * @return void
-     */
-    public function help()
+    public function getParser()
     {
-        $name = $argv[0];
-        print "\n[*] Get Ip Ranges by city, country or ISP\n";
-        print "[+] Coded by hIMEI\n";
-        print "[*] Usage:\n\n";
-        print "\t\$ $name <type> <out>\n\n";
-        print "[*] Example:\n\n";
-        print "\t\$ $name city output.txt\n\n";
-        exit(0);
+        return $this->parser;
     }
+  
+    public function cliParse()
+    {
+        $params = array();
 
-    /**
-     * getCityLink 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getCityLink()
-    {
-        return $this->city_link;
-    }
- 
-    /**
-     * getCountryLink 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getCountryLink()
-    {
-        return $this->country_link;
-    }
+        $parser = $this->getParser();
 
-    /**
-     * getIspLink 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getIspLink()
-    {
-        return $this->isp_link;
-    }
+        try {
+            $parsed = $parser->parse();
+            var_dump($parsed);
 
-    /**
-     * getOpts 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getOpts()
-    {
-        return $this->opts;
-    }
+            if ($parsed->options['output']) {
+                $params['output'] = $parsed->options['output'];
+            }
 
-    /**
-     * Set random "user agent" value from 1034 values
-     * @param  void
-     * @return string $user_agent
-     */
-    public  function userAgent()
-    {
-        $ua_file    = file(__DIR__.'/agents');
-        $random_num = random_int(0, 1034);
-        $user_agent = $ua_file[$random_num];
-    
-        return $user_agent;
-    }
+            if ((!$parsed->args['type']) || (!$parsed->args['request'])) {
+                die(RED.BOLD."Request and IP range's type are required!\n".RESET);
+            }
+/*
+            if (($parsed->args['type'] != 'city')    ||
+                ($parsed->args['type'] != 'isp')     ||
+                ($parsed->args['type'] != 'country')) {    
+                    die(RED.BOLD."Valid values for <type> is 'city', 'isp' or 'country'!\n".RESET);
+            }
+ */           
+            if (($parsed->args['type'] === 'city') && (ctype_alpha($parsed->args['request']) != true)) {
+                die(RED.BOLD."Invalid city name! Only letters must be there.\n".RESET);
+            }
 
-    /**
-     * getIps 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getIps()
-    {
-        $post_data = array();
-        $opts = $this->getOpts();
-        $user_agent = $this->userAgent();
-        $post_data['url']   = $opts['url'];
-        $post_data['action'] = $opts['action'];
-        foreach ($post_data as $key => $value) {
-            $post_items[] = $key.'='.$value;
+            if (($parsed->args['type'] === 'country') && 
+               ((strlen($parsed->args['request']) !== 2) || (ctype_alpha($parsed->args['request']) != true))) {
+                die(RED.BOLD."Invalid country name! Only 2 english letters must be there.\n".RESET);
+            }
+
+            $params['type']    = trim($parsed->args['type']);
+            $params['request'] = trim($parsed->args['request']);
+            $params['action']  = 'Отправить';
+        } catch (Exception $e) {
+            $parser->displayError($e->getMessage());
         }
 
-        $post_string = implode ('&', $post_items);
-        $session = curl_init();
-
-        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($session, CURLOPT_USERAGENT, $user_agent);
-        curl_setopt($session, CURLOPT_URL, $opts['link']);
-        curl_setopt($session, CURLOPT_POSTFIELDS, $post_string);
-        curl_setopt($session, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($session, CURLOPT_FOLLOWLOCATION, 1);
-              
-        $result = curl_exec($session);
-//        print_r(curl_getinfo($session));
-        print(curl_errno($session) . '-' .curl_error($session));
-        curl_close($session);
-        
-        return $result;
-    }
-
-    /**
-     * prepHtml 
-     * 
-     * @param mixed $result 
-     * @access public
-     * @return void
-     */
-    function prepHtml($result)
-    {
-        $trimmed = strip_tags($result, '<pre>');
-        $trimmed = explode("pre", $trimmed);
-
-        return $trimmed[2];
-    }
-
-    /**
-     * outPut 
-     * 
-     * @param mixed $result 
-     * @access public
-     * @return void
-     */
-    public function outPut($result)
-    {
-        $options = $this->getOpts();
-        $file = $options['out'];
-        $output = fopen($file, "w");
-        fwrite($output, $result);
-        fclose($output);
+        return $params;
     }
 }
 
+$cli = new GetIpCli();
+$params = $cli->cliParse();
 
+$get_ip = new GetIp($params);
 
-$opts = array(
-           'link'  => 'https://suip.biz/ru/?act=ipintpr',
-           'url'   => 'beeline.ru',
-           'action' => 'Отправить'
-           );
-
-$get_ip = new GetIp($opts); /*
 $result = $get_ip->getIps();
-$f_result = $get_ip->prepHtml($result);
-print($f_result);
-*/
-$get_ip->help();
+//$f_result = $get_ip->prepHtml($result);
+print($result);
+
+

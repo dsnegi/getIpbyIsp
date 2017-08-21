@@ -1,6 +1,6 @@
 {
     "name": "himei/get-ip-by",
-    "description": "Simple cURL based commandline application for getting IP ranges by city, country or ISP from suip.biz web sices.",
+    "description": "Simple cURL based commandline application for getting IP ranges by city, country or ISP from suip.biz web-services.",
     "type": "project",
     "authors": [
         {
