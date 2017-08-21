@@ -4,7 +4,7 @@
     "type": "project",
     "keywords": [
         "console",
-        "ip ranges",
+        "ip ranges"
     ],
     "homepage": "https://github.com/hlmel/getIpbyIsp",
     "license": "MIT",
