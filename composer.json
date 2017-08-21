@@ -1,9 +1,10 @@
 {
     "name": "himei/get-ip-by-isp",
     "description": "Simple cURL based console application for getting IP ranges from suip.biz web-services by city, country or ISP",
-    "type": "project",
     "keywords": [
         "console",
+        "cli",
+        "curl",
         "ip ranges"
     ],
     "homepage": "https://github.com/hlmel/getIpbyIsp",
