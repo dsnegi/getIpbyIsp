@@ -85,6 +85,8 @@ or
 php getipbyisp.php isp 217.118.85.19
 ```
 
+**Warning!!!** In case of request by city, write the name of the city **carefully and accurately**, as much as possible. If an error occurs in the name, the search on the uncleaned database is activated, and the result includes **ALL** IP ranges from **all** possible variants. To get the most accurate result, the city name **must not contain errors**.
+
 ## TODO
 
 * Tests

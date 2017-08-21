@@ -87,7 +87,7 @@ class GetIpCli
     {
         $parser = new Console_CommandLine(array(
             'description' => YEL."\nConsole application for getting IP ranges 
-from suip.biz web-services by city, country or ISP".RESET,
+from suip.biz web-services by city, country or ISP\n\n".RESET.RED."**Warning!!!** In case of request by city, write the name of the city **carefully and accurately**, as much as possible. If an error occurs in the name, the search on the uncleaned database is activated, and the result includes **ALL** IP ranges from **all** possible variants. To get the most accurate result, the city name **must not contain errors**\n".RESET,
             'version'            => "1.0.0",
             'add_version_option' => false,
             ));
@@ -177,7 +177,7 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
 
             if (($parsed->args['type'] === 'country') &&
                ((strlen($parsed->args['request']) !== 2) || (ctype_alpha($parsed->args['request']) != true))) {
-                die(RED.BOLD."Invalid country name! Only 2 english letters must be there.\n".RESET);
+                die(RED.BOLD."Invalid country name! Only 2 english UPPERCASE letters must be there.\n".RESET);
             }
 
             if (($parsed->args['type'] === 'country') && (in_array($parsed->args['request'], $country_codes) === false)) {
