@@ -70,24 +70,6 @@ class GetIp
     }
 
     /**
-     * help 
-     * 
-     * @access public
-     * @return void
-     */
-    public function help()
-    {
-        $name = "getipby.php";
-        print(GRN."\n[*] Get Ip Ranges by city, country or ISP\n");
-        print("[+] Coded by hIMEI\n");
-        print("[*]".BOLD.YEL." Usage:\n\n".RESET);
-        print("\t\$ $name <type> <out>\n\n");
-        print("[*]".BOLD.YEL." Example:\n\n".RESET);
-        print("\t\$ $name city output.txt\n\n".RESET);
-        exit(0);
-    }
-
-    /**
      * getCityLink 
      * 
      * @access public
@@ -148,6 +130,7 @@ class GetIp
         }
 
         return $link;
+        
     }  
  
     /**
@@ -159,7 +142,7 @@ class GetIp
     {
         $ua_file    = file(__DIR__.'/agents');
         $random_num = random_int(0, 1034);
-        $user_agent = $ua_file[$random_num];
+        $user_agent = trim($ua_file[$random_num]);
     
         return $user_agent;
     }
@@ -176,7 +159,7 @@ class GetIp
         $params = $this->getParams();
         $user_agent = $this->userAgent();
         $link = $this->getLink();
-        $post_data['request'] = $params['request'];
+        $post_data['url'] = $params['url'];
         $post_data['action']  = $params['action'];
         foreach ($post_data as $key => $value) {
             $post_items[] = $key.'='.$value;
@@ -186,7 +169,7 @@ class GetIp
         $session = curl_init();
 
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($session, CURLOPT_USERAGENT, $user_agent);
+        curl_setopt($session, CURLOPT_USERAGENT, $user_agent);
         curl_setopt($session, CURLOPT_URL, $link);
         curl_setopt($session, CURLOPT_POSTFIELDS, $post_string);
         curl_setopt($session, CURLOPT_CUSTOMREQUEST, "POST");

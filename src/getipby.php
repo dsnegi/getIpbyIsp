@@ -60,7 +60,7 @@ from suip.biz web-services by city, country or ISP".RESET,
             'long_name'   => '--type',
             'action'      => 'StoreString',
             'description' => GRN."Set the type of which IP ranges will 
-be requested: city, counrty or ISP\n".RESET
+be requested: city, counrty or isp\n".RESET
             ));
 
         $parser->addArgument('request', array(
@@ -87,7 +87,6 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
 
         try {
             $parsed = $parser->parse();
-            var_dump($parsed);
 
             if ($parsed->options['output']) {
                 $params['output'] = $parsed->options['output'];
@@ -96,13 +95,13 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
             if ((!$parsed->args['type']) || (!$parsed->args['request'])) {
                 die(RED.BOLD."Request and IP range's type are required!\n".RESET);
             }
-/*
-            if (($parsed->args['type'] != 'city')    ||
-                ($parsed->args['type'] != 'isp')     ||
-                ($parsed->args['type'] != 'country')) {    
+
+            if (($parsed->args['type'] !== 'city')    &&
+                ($parsed->args['type'] !== 'isp')     &&
+                ($parsed->args['type'] !== 'country')) {    
                     die(RED.BOLD."Valid values for <type> is 'city', 'isp' or 'country'!\n".RESET);
             }
- */           
+            
             if (($parsed->args['type'] === 'city') && (ctype_alpha($parsed->args['request']) != true)) {
                 die(RED.BOLD."Invalid city name! Only letters must be there.\n".RESET);
             }
@@ -113,7 +112,7 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
             }
 
             $params['type']    = trim($parsed->args['type']);
-            $params['request'] = trim($parsed->args['request']);
+            $params['url'] = trim($parsed->args['request']);
             $params['action']  = 'Отправить';
         } catch (Exception $e) {
             $parser->displayError($e->getMessage());
@@ -125,11 +124,9 @@ for city - its name, for ISP - single IP or ISP url\n".RESET
 
 $cli = new GetIpCli();
 $params = $cli->cliParse();
-
 $get_ip = new GetIp($params);
-
 $result = $get_ip->getIps();
-//$f_result = $get_ip->prepHtml($result);
-print($result);
+$f_result = $get_ip->prepHtml($result);
+print($f_result);
 
 
