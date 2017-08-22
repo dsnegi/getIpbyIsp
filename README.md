@@ -12,16 +12,22 @@ See full documentation on [GitHubPages](https://hlmel.github.io/getIpbyIsp/)
 
 ## Installation
 
-Install via Composer:
+#### Install via Composer:
 
 ```shell
 composer require himei/get-ip-by-isp
 ```
 
-Just clone this repo
+#### For manual installation clone repo
 
 ```shell
 git clone https://github.com/hlmel/getIpbyIsp.git
+```
+
+##### Then install dependencies
+
+```shell
+php composer.phar install
 ```
 
 ## Usage
