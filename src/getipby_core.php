@@ -87,7 +87,7 @@ class GetIpCore
      * @access public
      * @return string $link Url to make request.
      */
-    public function getLink()
+    protected function getLink()
     {
         $params = $this->params;
         $link = null;
@@ -113,7 +113,7 @@ class GetIpCore
      * @param  void
      * @return string $user_agent
      */
-    public function userAgent()
+    protected function userAgent()
     {
         $ua_file    = file(__DIR__.'/agents');
         $random_num = random_int(0, 1034);
@@ -129,7 +129,7 @@ class GetIpCore
      * @access public
      * @return string $result Response from web-service.
      */
-    public function getIps()
+    protected function getIps()
     {
         $post_data = array();
         $params = $this->getParams();
@@ -165,7 +165,7 @@ class GetIpCore
      * @access public
      * @return string $res_trimmed String with list of IPs.
      */
-    public function prepHtml($result)
+    protected function prepHtml($result)
     {
         $trimmed = strip_tags($result, '<pre>');
         $trimmed = explode("pre", $trimmed);
