@@ -1,5 +1,5 @@
 <?php
-
+namespace GetIpByIsp;
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -85,7 +85,7 @@ class GetIpCli
      */
     public function __construct()
     {
-        $parser = new Console_CommandLine(array(
+        $parser = new \Console_CommandLine(array(
             'description' => BOLD.YEL."\nConsole application for getting IP ranges 
 from suip.biz web-services by city, country or ISP\n\n".RESET.BOLD.RED."**Warning!!!** In case of request by city, write the name of the city **carefully and accurately**, as much as possible, please. If an error occurs in the name, the search on the uncleaned database is activated, and the result includes **ALL** IP ranges from **all** possible variants. To get the most accurate result, the city name **must not contain errors**\n".RESET,
             'version'            => "1.0.0",
